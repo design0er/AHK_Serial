@@ -9,18 +9,41 @@
 ; 	- if not exist, start the exe directly.
 ; author: design0er@gmail.com
 ; earliest developed on 2014-02.
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; chrome conflict list
+; VSCode
+; Chrome
 #InstallKeybdHook
 SetTitleMatchMode RegEx
-IfExist, apply.ico
-{
-	Menu TRAY, Icon, arrow-down-2.ico
-}
+;DetectHiddenWindows, On
+<#NumpadEnter::AltTab
+<#NumpadAdd::ShiftAltTab
+
+<#NumpadMult::WinMaximize A
+<#NumpadDiv::WinRestore A
+<#NumpadSub::WinMinimize A
+
+;z:\work\ahk\AHK_Serial\flag-yellow-2.ico
+I_Icon = flag-yellow-2.ico
+IfExist, %I_Icon%
+  Menu, Tray, Icon, %I_Icon%
+;return
 FindAndActive(someClass,path,max)
 {
 	s  = ahk_class %someClass%
 	if WinExist(s)
 	{
+		;if WinActive(s)
+		;{
+		;	;WinMinimize //not perfect
+		;	WinSet, Bottom,,s
+		;	WinSet, Transparent,200,s
+		;	return 
+		;}
+
 		WinActivate
+		WinSet, Transparent,Off,s
 		if(max)
 			WinMaximize
 	}
@@ -77,8 +100,9 @@ FindAndActive("Chrome_WidgetWin*","C:\Program Files (x86)\Google\Chrome\Applicat
 return
 
 ;cmder: D:\program_h\cmder1_3_8\vendor\conemu-maximus5\ConEmu64.exe
+;C:\Users\design0er\.babun\cygwin\bin\mintty.exe -
 <#Numpad2::
-FindAndActive("VirtualConsoleClass","D:\program_h\cmder1_3_8\vendor\conemu-maximus5\ConEmu64.exe",0)
+FindAndActive("mintty","C:\Users\design0er\.babun\cygwin\bin\mintty.exe -",0)
 return
 
 ;firefox
@@ -99,7 +123,8 @@ return
 
 ;ssms
 <#Numpad5::
-FindAndActive("HwndWrapper","ssms.exe",1)
+;FindAndActive("HwndWrapper","ssms.exe",1)
+FindAndActive("TMobaXtermForm","C:\Program Files (x86)\Mobatek\MobaXterm\MobaXterm.exe",1)
 return
 
 ;process hacker
@@ -119,14 +144,19 @@ return
 ;return
 
 ;WFS_Frame :win file manager: C:\pro_some\Winfile_v10.0.1806.1\x64\Winfile.exe
+
 <#Numpad7::
-FindAndActive("WFS_Frame","C:\pro_some\Winfile_v10.0.1806.1\x64\Winfile.exe")
+;FindAndActive("WFS_Frame","C:\pro_some\Winfile_v10.0.1806.1\x64\Winfile.exe")
+FindAndActive("SUMATRA_PDF_FRAME","C:\pro_some\SumatraPDF\SumatraPDF.exe",0)
+
+
 return
 
 <#Numpad8::
-FindAndActive("everything","C:\Program Files\Everything\Everything.exe")
+FindAndActive("everything","C:\Program Files\Everything\Everything.exe",0)
 return
 
+;C:\Users\design0er\AppData\Local\youdao\dict\Application
 <#Numpad9::
-FindAndActive("YodaoMainWndClass","D:\program_h\Youdao\Dict\YoudaoDict.exe")
+FindAndActive("YodaoMainWndClass","C:\Users\design0er\AppData\Local\youdao\dict\Application\YoudaoDict.exe",0)
 return
